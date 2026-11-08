@@ -1,0 +1,25 @@
+
+version: 2
+
+sources:
+  - name: retail_source
+    description: "Retail source tables stored in Databricks Bronze layer"
+
+    catalog: dbt
+    schema: bronze
+
+    tables:
+      - name: dim_customer
+        description: "Customer master data"
+
+      - name: dim_product
+        description: "Product master data"
+
+      - name: dim_date
+        description: "Date dimension data"
+
+      - name: dim_store
+        description: "Store dimension data"
+
+      - name: fact_sales
+        description: "Retail sales transaction data"
