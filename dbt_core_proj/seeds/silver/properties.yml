@@ -1,0 +1,13 @@
+seeds:
+  - name: dim_customer_segments
+    description: "Customer segment reference data"
+
+    columns:
+      - name: segment_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: segment_name
+        data_tests:
+          - not_null

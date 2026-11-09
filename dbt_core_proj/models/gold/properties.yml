@@ -1,0 +1,159 @@
+
+version: 2
+
+models:
+
+  - name: gold_customer
+    description: "Cleaned customer gold model from silver layer"
+
+    config:
+        materialized: table
+    columns:
+      - name: customer_id
+        description: "Unique customer identifier"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: customer_name
+        description: "Customer full name"
+        data_tests:
+          - not_null
+
+      - name: gender
+        description: "Customer gender"
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Male', 'Female']
+
+
+
+      - name: city
+        description: "Customer city"
+
+      - name: state
+        description: "Customer state"
+
+      - name: country
+        description: "Customer country"
+
+      - name: registration_date
+        description: "Customer registration date"
+
+
+  - name: gold_product
+    description: "Cleaned product gold model"
+
+    columns:
+      - name: product_id
+        description: "Unique product identifier"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: product_name
+        description: "Product name"
+        data_tests:
+          - not_null
+
+      - name: category
+        description: "Product category"
+
+      - name: sub_category
+        description: "Product subcategory"
+
+      - name: brand
+        description: "Product brand"
+
+      - name: unit_price
+        description: "Product unit price"
+
+
+  - name: gold_date
+    description: "Date dimension gold model"
+
+    columns:
+      - name: date_id
+        description: "Unique date identifier"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: full_date
+        description: "Calendar date"
+
+
+  - name: gold_store
+    description: "Store dimension gold model"
+
+    columns:
+      - name: store_id
+        description: "Unique store identifier"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: store_name
+        description: "Store name"
+        data_tests:
+          - not_null
+
+      - name: city
+        description: "Store city"
+
+      - name: region
+        description: "Store geographical region"
+
+
+  - name: gold_sales
+    description: "Cleaned sales transaction gold model"
+
+    columns:
+      - name: sales_id
+        description: "Unique sales transaction identifier"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: customer_id
+        description: "Customer foreign key"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_id
+
+      - name: product_id
+        description: "Product foreign key"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: product_id
+
+      - name: date_id
+        description: "Date foreign key"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_id
+
+      - name: store_id
+        description: "Store foreign key"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_store')
+                field: store_id
+
+      - name: quantity
+        description: "Quantity of products sold"
+
+      - name: total_amount
+        description: "Total transaction amount"

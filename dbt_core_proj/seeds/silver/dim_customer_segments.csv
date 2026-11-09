@@ -1,0 +1,6 @@
+segment_id,segment_name,description
+1,Premium,High value customers
+2,Regular,Regular purchasing customers
+3,New,Recently registered customers
+4,Inactive,Customers with no recent purchases
+5,Corporate,Business customers
